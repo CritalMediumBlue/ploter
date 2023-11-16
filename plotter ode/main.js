@@ -1,20 +1,19 @@
 var pointCount = 1000;
 var i, r;
 
-const prod_R= 0.01;  // production rate of SinR, units: nM/min or similar
-const prod_I= 0.01; // production rate of SinI, units: nM/min or similar
-const prod_L= 0.01; // production rate of SlrR, units: nM/min or similar
-const deg_R= 0.001; // degradation rate of SinR, units: min^-1
-const deg_I= 0.001; // degradation rate of SinI, units: min^-1
-const deg_L= 0.001; // degradation rate of SlrR, units: min^-1
-const for_com_I= 0.001; // rate of complex formation between SinR and SinI, units: nM^-1 min^-1
-const for_com_L= 0.001; // rate of complex formation between SinR and SlrR, units: nM^-1 min^-1
-const dis_com_I= 0.0001; // rate of complex dissociation between SinR and SinI, units: min^-1
-const dis_com_L= 0.0001;  // rate of complex dissociation between SinR and SlrR, units: min^-1
-const deg_com_I= 0.001; // degradation rate of complex between SinR and SinI, units: min^-1
-const deg_com_L= 0.001; // degradation rate of complex between SinR and SlrR, units: min^-1
-const k= 10; // affinity or threshold constant, units might vary
-const n= 2; // Hill coefficient, dimensionless
+let prod_R3 = 0.02; // molecule sec-1 Assuming P3 is already defined
+let prod_R1 = 0.15; // Assuming P1 is already defined
+let deg_R = 0.2; // h-1Assuming DR is already defined
+let deg_I = 0.2; // h-1Assuming DI is already defined
+let deg_L = 0.6; // h-1 Assuming DL is already defined
+let for_com_RI = 0.32; // #-1 h-1 or 2.73x10^4 M^-1 s^-1 Assuming KonRI is already defined
+let for_com_RL = 0.32; // #-1 h-1 or 4.85 x10^3 M^-1 s^-1Assuming KonRL is already defined
+let prod_L = 0.2; // Molecules second-1 Assuming PL is already defined
+let n_R = 1; // Assuming nR is already defined
+let n_A = 1; // Assuming nA is already defined
+let K_R = 3; // Assuming KR is already defined
+let K_A = 3; // Assuming KA is already defined
+let A = 6;
 
 
 var initialValues = [];
@@ -38,25 +37,22 @@ for (let j = 0; j < initialValues.length; j++) {
     var R = [initialValues[j][0]];
     var I = [initialValues[j][1]];
     var L = [initialValues[j][2]];
-    var ComI = [0];
-    var ComL = [0];
     var c = [];
 
     for(i = 0; i < pointCount; i++) {
-        let dR=   prod_R - deg_R*R[i]- for_com_I*R[i]*I[i]- for_com_L*R[i]*L[i] + dis_com_L*ComL[i]+ dis_com_I*ComI[i];
-        R.push( R[i] +dR); //SinR
-
-        let dI= prod_I*(k^n)/((k^n)+(R[i]^n)) - deg_I*I[i] - for_com_I*R[i]*I[i]+ dis_com_I*ComI[i] ;
-        I.push( I[i] +dI);//SinI
-
-        let dL= prod_L*(k^n)/((k^n)+(R[i]^n)) - deg_L*L[i]- for_com_L*R[i]*L[i] + dis_com_L*ComL[i];
-        L.push(L[i] +dL); //SlrR
-
-        let dComI= for_com_I*R[i]*I[i] - dis_com_I*ComI[i]- deg_com_I*ComI[i]; 
-        ComI.push(ComI[i]+dComI); //Complex between SinR and SinI
-
-        let dComL= for_com_L*R[i]*L[i] - deg_com_L*ComL[i] - dis_com_L*ComL[i];
-        ComL.push(ComL[i] +dComL); //Complex between SinR and SlrR
+        // dR/dt equation
+        let activation_R = prod_R1 / (1 + Math.pow(R[i] / K_R, n_R)) * Math.pow(A[i] / K_A, n_A) / (1 + Math.pow(A[i] / K_A, n_A));
+        let dR = prod_R3 + activation_R - deg_R * R[i] - for_com_RI * R[i] * I[i] - for_com_RL * R[i] * L[i]; /* + dis_com_L * ComL[i] + dis_com_I * ComI[i]; */
+        R.push(R[i] + dR);
+        
+        // dI/dt equation
+        let dI = activation_R - deg_I * I[i] - for_com_RI * R[i] * I[i]; /* + dis_com_I * ComI[i]; */
+        I.push(I[i] + dI);
+        
+        // dL/dt equation
+        let activation_L = prod_L / (1 + Math.pow(R[i] / K_R, n_R));
+        let dL = activation_L - deg_L * L[i] - for_com_RL * R[i] * L[i]; /* + dis_com_L * ComL[i]; */
+        L.push(L[i] + dL);
 
         c.push(i)
     }
