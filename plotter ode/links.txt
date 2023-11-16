@@ -1,0 +1,207 @@
+http://www.subtiwiki.uni-goettingen.de/v3/pathway/view/30
+
+#####################################################
+doi:10.1111/j.1365-2958.2008.06369.x
+
+SlrR/SlrA controls the initiation of biofilm formation in Bacillus subtilis  
+
+
+SlrR (formerly Slr) and SlrA are homologues of
+SinR and SinI respectively, and SlrR/SlrA represses
+sD-dependent flagellar genes and activate the eps and
+yqxM operons.
+
+In the ywcC mutant, SlrR/SlrA rather than
+SinI activates the eps and yqxM operons by antagoniz-
+ing SinR.
+
+ cell-wall autolysins, the latter of which are required to
+maintain a uniform cell length.
+
+Because an
+abrB mutation can bypass the requirement of Spo0A for
+biofilm formation, repression of abrB transcription seems
+to be the major role for Spo0A~P in biofilm formation
+
+AbrB is abundant during
+the early growth phase, and it represses transcription of
+many genes that are active in the stationary phase.
+
+
+binding of SinI inhibits the DNA-
+binding activity of SinR
+
+the control of SinR activity is thought to govern
+the switch from planktonic to biofilm-forming growth mode
+
+
+#####################################################
+http://www.genesdev.org/cgi/doi/10.1101/gad.1915010
+
+Here we report that a complex of the SinR and SlrR proteins binds to and
+represses genes involved in cell separation and motility.
+
+We also report that SinR and SlrR constitute a double-
+negative feedback loop in which SinR represses the gene for SlrR (slrR), and, by binding to (titrating) SinR, SlrR
+prevents SinR from repressing slrR. Thus, SlrR indirectly derepresses its own gene, creating a self-reinforcing loop.
+Finally, we show that, once activated, the loop remains locked in a high SlrR state in which cell separation
+and motility genes are OFF for extended periods of time.
+
+A second circumstance in which chaining is observed
+is in structured communities called biofilms
+
+ Biofilms consist of long chains of
+cells that are attached to each other along their long axes
+by an extracellular matrix 
+
+SinI is an anti-repressor that binds to and
+inhibits the SinR repressor, a protein that is produced
+constitutively 
+
+We report that SinR and SlrR constitute a double-
+negative feedback loop involving protein–protein (SlrR-
+mediated inhibition of SinR) and protein–DNA (SinR-
+mediated repression of slrR) interactions.
+
+SlrR binds to SinR, and that the formation of the
+SinR•SlrR complex inhibits the capacity of SinR to bind to the slrR promoter (and other SinR targets)
+
+
+At the same
+time, the SinR•SlrR complex, but neither SinR alone
+nor SlrR alone, is a potent repressor of autolysin genes
+
+We
+propose that the SinR SlrR switch exists in two alterna-
+tive stable states: a state in which SlrR levels are high
+(SlrR HIGH state), and a state in which SlrR levels are
+low (SlrR LOW state)
+
+
+
+#################################################################
+https://www.uni-marburg.de/de/fb17/fachgebiete/mikrobiologie/ag-bremer/publikationen/pdf-zu-reviews/bre_rev-27.pdf
+
+Five histidine kinases with partially overlap-
+ping functions mediate the phosphorylation of Spo0A. Four of these
+(KinA, KinB, KinC, KinD) are embedded in the cytoplasmic membrane
+
+The cues triggering
+biofilm formation are not completely understood, but KinC plays an
+import role in this process. [57,60,61] Its kinase activity is regulated by
+surfactin, a motility-related lipopeptide produced by B. subtilis and also
+other bacteria
+
+
+##############################################################
+Citation: Newman JA, Lewis RJ. Exploring the role
+of SlrR and SlrA in the SinR epigenetic switch.
+Commun Integr Biol 2013; 6: e25658;
+http://dx.doi.org/10.4161/cib.25658
+*Correspondence to: Richard J Lewis
+
+SinR, when expressed in the absence of antagonists, must first
+form the SinR tetramer before binding and repressing the activity of the nearby tapA-sipW-tasA
+
+Pull-down experiments using a tagged
+version of SlrA established that it is able
+to interact with both SinR and SlrR operon. 
+
+
+Using a
+combination of surface plasmon reso-
+nance and isothermal titration calorim-
+etry, a high affinity interaction between
+SlrA and SinR but not between SlrA and
+SlrR 10 was found
+
+It has been established that SlrR is sub-
+ject to degradation in vivo, appearing to
+degrade proteolytically with a half-life of
+approximately 100 min
+
+#################################################################
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8749435/
+In a population, individual cells grow at different rates, and KinC would increase the Spo0A activity in the fast-growing cells but reduce the Spo0A activity in the slow-growing cells. This mechanism reduces single-cell heterogeneity of Spo0A activity, thereby increasing the fraction of cells that activate biofilm matrix production. Thus, KinC activates biofilm formation by controlling the fraction of cells activating biofilm gene expression.
+
+
+################################################################################
+, DOI 10.1074/jbc.M113.455592
+Molecular Basis of the Activity of SinR Protein, the Master
+Regulator of Biofilm Formation in Bacillus subtilis
+
+
+When suffi-
+cient SinI is present, an SinR-SinI complex is formed that inhib-
+its the SinR-DNA interaction, causing derepression (13, 14),
+brought about not by the occlusion of the DNA binding sites in
+SinR by SinI, but by the dissociation of the SinR tetramer into a
+SinR-SinI heterodimer
+
+SlrR binds to SinR, and this com-
+plex represses genes involved in flagellar biosynthesis and cell
+separation
+
+
+ A, thermodynamics of the SinR-SinI interaction measured by ITC. Sequential injections of SinI
+(516
+M ) were performed into a reaction cell containing SinR (38
+M ). Both the raw data (upper panel) and the integrated heats (lower panel) show a sudden
+sharp transition, indicating that the interaction is too tight to be accurately measured by ITC (Kd 10 n M ).
+
+
+The lack of intermediate points on the binding isotherm means
+that the equilibrium dissociation constant (K d) cannot be deter-
+mined accurately, suggesting that the SinR-SinI and the SinR-
+SlrA interactions are too tight to be measured directly by ITC
+(upper limit for Kd 10 n M ). However, some thermodynamic
+parameters (Table 1) are directly obtained from the isotherms
+such as the binding enthalpy, H, and the interaction stoichi-
+ometry, n. The fact that SinI and SinR form a very tight complex
+with 1:1 stoichiometry was not surprising given the previous
+data on this interaction (
+
+
+############################################################
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3163267/?report=printable
+
+sinR encodes a tetrameric repressor of genes required for biofilm formation in Bacillus subtilis
+
+sinI, which is transcribed under Spo0A control, encodes a dimeric protein that binds to SinR to form a SinR–SinI heterodimer in which the DNA-binding functions of SinR are abrogated and repression of biofilm genes is relieved
+
+
+
+#######################################################################
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7384550/pdf/nihms-1539372.pdf
+
+The SinI-SinR interaction is essentially irreversible, creating a dead-end complex [23] as
+established by the very low binding affinity and very slow dissociation rate 
+
+The
+formation of this dead-end inhibitory complex is proposed to be necessary for sequestering
+free SinR thereby ensuring biofilm formation 
+
+we provide the first structures of both full-length tetrameric SinR and dimeric
+SinI in solution.
+
+
+Previous studies suggest that SinR is a tetramer in solution.
+
+
+It is also known that SinI is in monomer/dimer equilibrium, and
+that the SinR-SinI complex is a heterodimer.
+
+SinI adopts a clear
+dimeric state
+
+
+In solution, SinI is in a rapidly reversible monomer/dimer
+equilibrium
+
+Tetrameric SinRC is formed by a dimer of dimers through helical hooks
+
+
+###############################################################
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1449569/pdf/1955.pdf
+Expression of SinI is 10-fold greater than that of SinR from P1 mRNA
+SinI is a small peptide, the free form of which is assumed to degrade rapidly
