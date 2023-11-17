@@ -1,4 +1,4 @@
-var pointCount = 35000;
+var pointCount = 70000;
 var i, r;
 
 /* - Weakly transcribed genes: 0.1 to 1 transcripts per minute (6 to 60 transcripts per hour)
@@ -14,17 +14,17 @@ var i, r;
 
  */
 
-let prod_R3 = 0.84; // (3.33 minutes^-1 acc to Zhuo Chen) 1 (0.84 minutes^-1 acc to Shristopher A. Voigt) (0.84 acc to Jennifer S. Hallinan)
-let prod_R1 = 4; //(3.33 minutes^-1 acc to Zhuo Chen) 1 (48 minutes^-1 acc to Shristopher A. Voigt)
-let prod_L = 4; // (3.33 minutes^-1 acc to Zhuo Chen) 1 (6 minutes^-1 acc to Jennifer S. Hallinan)
+let prod_R3 = 0.80; // (3.33 minutes^-1 acc to Zhuo Chen) 1 (0.84 minutes^-1 acc to Shristopher A. Voigt) (0.84 acc to Jennifer S. Hallinan)
+let prod_R1 = 3; //(3.33 minutes^-1 acc to Zhuo Chen) 1 (48 minutes^-1 acc to Shristopher A. Voigt)
+let prod_L = 3; // (3.33 minutes^-1 acc to Zhuo Chen) 1 (6 minutes^-1 acc to Jennifer S. Hallinan)
 
-let prod_MP1 = 5.4 ; // (1.416 transcript/minute acc to Zhuo Chen)1  (9 transcript/minute acc to Shristopher A. Voigt) (1.2 trancript/minute acc to Jennifer S. Hallinan)
-let prod_MP3 = 3; // (1.667 transcript/minute acc to Zhuo Chen)1 (16.8 transcript/minute acc to Shristopher A. Voigt)
-let prod_ML = 3; //   (2.083 transcript/minute acc to Zhuo Chen)1 (12 transcript/minute acc to Jennifer S. Hallinan)
+let prod_MP1 = 3.5 ; // (1.416 transcript/minute acc to Zhuo Chen)1  (9 transcript/minute acc to Shristopher A. Voigt) (1.2 trancript/minute acc to Jennifer S. Hallinan)
+let prod_MP3 = 2.5; // (1.667 transcript/minute acc to Zhuo Chen)1 (16.8 transcript/minute acc to Shristopher A. Voigt)
+let prod_ML = 2.5; //   (2.083 transcript/minute acc to Zhuo Chen)1 (12 transcript/minute acc to Jennifer S. Hallinan)
 
 let deg_R = 0.01;  //  (3.33e-3 1/minute acc to Zhuo Chen) 1 (0.12 1/minute acc to Shristopher A. Voigt)
 let deg_I = 0.01; //  (3.33e-3 1/minute acc to Zhuo Chen) 1 (1.2 1/minute acc to Shristopher A. Voigt)
-let deg_L = 0.015; // (0.01 1/minute acc to Zhuo Chen) 1
+let deg_L = 0.02; // (0.01 1/minute acc to Zhuo Chen) 1
 
 let deg_MP = 0.2; //  (0.138 1/minute acc to Zhuo Chen)1 
 
@@ -36,13 +36,13 @@ let n_A = 2;
 let K_R = 205; 
 let K_A = 100; 
 
-let init_I=0; // at the beginning, there is no SinI. AbrB is inhibiting the transcription of SinI and there's no Spo0A-P to activate it.
-let init_L=99; // at the beginning, there is no SlrR. SinR is inhibiting the transcription of SlrR.
+let init_I=0.81; // at the beginning, there is no SinI. AbrB is inhibiting the transcription of SinI and there's no Spo0A-P to activate it.
+let init_L=160; // at the beginning, there is no SlrR. SinR is inhibiting the transcription of SlrR.
 let init_m=0;
 
 var initialValues = [];
 for (var i = 1; i <= 1; i++) {
-    initialValues.push([1254 * i, init_I, init_L, init_m, 15, 0.37]);
+    initialValues.push([644.8 * i, init_I, init_L, init_m, 15, 0.37]);
 }
 //  [R    , I      , L    , mI  , mR  , mL  ];
 var data1 = [];
@@ -61,7 +61,7 @@ for (var j = 0; j <  initialValues.length   ; j++) {
     for(i = 0; i < pointCount; i++) {
 
        // let A = i*(100/pointCount); 
-        let A =250; 
+        let A =50; 
        // let A = i*(100/pointCount); 
         
         let activation_P1 = 1 / (1 + Math.pow(R[i] / K_R, n_R)) * Math.pow(A / K_A, n_A) / (1 + Math.pow(A / K_A, n_A));
