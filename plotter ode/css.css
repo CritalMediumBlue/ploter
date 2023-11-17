@@ -1,1 +1,9 @@
- 
+body {
+    display: flex;
+}
+
+#myDiv, #myDiv2 {
+    flex: 1;
+    width: 1000px;
+    height: 1000px;
+}

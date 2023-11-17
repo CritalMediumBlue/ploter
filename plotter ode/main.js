@@ -1,45 +1,68 @@
-var pointCount = 5000;
+var pointCount = 30000;
 var i, r;
 
-let prod_R3 = 0.84; // proteins/(transcript*minute)
-let prod_R1 = 0.9; // proteins/(transcript*minute)
-let prod_L = 0.8; // proteins/(transcript*minute)
-let prod_MP1 = 9.0; // transcript/minute
-let prod_MP3 = 10.8; // transcript/minute 
-let prod_ML = 9.0; // transcript/minute
-let deg_R = 3.33e-3;  // 1/minute  ## fixed
-let deg_I = 3.33e-3; // 1/minute ## fixed
-let deg_L = 0.01; // 1/minute ## fixed
-let deg_MP = 0.3; // 1/minute
-
-let for_com_RI =  8.17e-4; // 1/(minute*protein)
-let for_com_RL = 0.0; 
-
-let n_R = 2; 
-let n_A = 0; 
-let K_R = 100; 
-let K_A = 0; 
-let A = 6;
+/* - Weakly transcribed genes: 0.1 to 1 transcripts per minute (6 to 60 transcripts per hour)
+- Moderately transcribed genes: 1 to 10 transcripts per minute (60 to 600 transcripts per hour)
+- Highly transcribed genes: greater than 10 transcripts per minute (over 600 transcripts per hour)
 
 
-var initialValues = [280.0, 40.0, 10.0, 0.0, 0.0, 0.0];
-var grid_size = 2;
-var range = [0, 10]; // Adjust as needed
-var data = [];
+- **Rapidly degraded proteins:**  Degradation rate: >1 h^-1  Half-life: <1 hour
+- **Stably expressed proteins:**   Degradation rate: between 0.1 and 1 h^-1   Half-life: anywhere from 1 to 10 hours
+- **Very stable proteins:**   Degradation rate: <0.1 h^-1   Half-life: >10 hours
+ */
 
+let prod_R3 = 3.33; // proteins/(transcript*minute) (200 h^-1 acc to Zhuo Chen)
+let prod_R1 = 3.33; // proteins/(transcript*minute) (200 h^-1 acc to Zhuo Chen)
+let prod_L = 3.33; // proteins/(transcript*minute) (200 h^-1 acc to Zhuo Chen)
 
+let prod_MP1 = 1.417*(1.4); // transcript/minute## fixed    (85 h^-1 acc to Zhuo Chen)
+let prod_MP3 = 1.667; // transcript/minute ## fixed   (100 h^-1 acc to Zhuo Chen)
+let prod_ML = 2.083; // transcript/minute ## fixed    (125 h^-1 acc to Zhuo Chen)
 
-    var R = [initialValues[0]];
-    var I = [initialValues[1]];
-    var L = [initialValues[2]];
-    var MP1 = [initialValues[3]];
-    var MP3 = [initialValues[4]];
-    var ML = [initialValues[5]];
+let deg_R = 0.01;  // 1/minute  ## fixed   (0.2 h^-1 acc to Zhuo Chen)
+let deg_I = 0.01; // 1/minute ## fixed      (0.2 h^-1 acc to Zhuo Chen)
+let deg_L = 0.01; // 1/minute ## fixed      (0.6 h^-1 acc to Zhuo Chen)
+
+let deg_MP = 0.138; // 1/minute  ## fixed   (8.3 h^-1 acc to Zhuo Chen)
+
+let for_com_RI =  5e-3; // 1/(minute*protein) (0.32 molecules^-1*h^-1 acc to Zhuo Chen)
+let for_com_RL = 5e-3; // 1/(minute*protein) (0.32 molecules^-1*h^-1 acc to Zhuo Chen)
+
+let n_R = 4; 
+let n_A = 4; 
+let K_R = 500; 
+let K_A = 50; 
+let A = 250;
+
+let init_I=0; // at the beginning, there is no SinI. AbrB is inhibiting the transcription of SinI and there's no Spo0A-P to activate it.
+let init_L=0; // at the beginning, there is no SlrR. SinR is inhibiting the transcription of SlrR.
+let init_m=11;
+
+var initialValues = [
+   
+    [100.0, init_I, init_L, init_m, init_m, init_m],
+    [200.0, init_I, init_L, init_m, init_m, init_m],
+    [300.0, init_I, init_L, init_m, init_m, init_m],
+    [400.0, init_I, init_L, init_m, init_m, init_m],
+    [500.0, init_I, init_L, init_m, init_m, init_m],
+];
+//  [R    , I      , L    , mI  , mR  , mL  ];
+var data1 = [];
+var data2 = [];
+
+for (var j = 0; j <  initialValues.length   ; j++) {
+
+    var R = [initialValues[j][0]];
+    var I = [initialValues[j][1]];
+    var L = [initialValues[j][2]];
+    var MP1 = [initialValues[j][3]];
+    var MP3 = [initialValues[j][4]];
+    var ML = [initialValues[j][5]];
     var c = [];
 
     for(i = 0; i < pointCount; i++) {
 
-        let activation_P1 =0.5;// 1 / (1 + Math.pow(R[i] / K_R, n_R)) * Math.pow(A[i] / K_A, n_A) / (1 + Math.pow(A[i] / K_A, n_A));
+        let activation_P1 = 1 / (1 + Math.pow(R[i] / K_R, n_R)) * Math.pow(A / K_A, n_A) / (1 + Math.pow(A / K_A, n_A));
        
         let activation_L = 1 / (1 + Math.pow(R[i] / K_R, n_R));
         // dMP3/dt equation
@@ -56,7 +79,7 @@ var data = [];
         ML.push(ML[i] + dML/60);
 
         // dR/dt equation
-         let dR = (MP1[i]+MP3[i])*prod_R3 - deg_R * R[i]- for_com_RI * R[i] * I[i];// - for_com_RL * R[i] * L[i]; /* + dis_com_L * ComL[i] + dis_com_I * ComI[i]; */
+         let dR = ((MP1[i])/10 + MP3[i])*prod_R3 - deg_R * R[i]- for_com_RI * R[i] * I[i];// - for_com_RL * R[i] * L[i]; /* + dis_com_L * ComL[i] + dis_com_I * ComI[i]; */
         R.push(R[i] + dR/60);
 
         
@@ -73,7 +96,7 @@ var data = [];
         c.push(i)
     }
 
-    data.push({
+    data1.push({
         type: 'scatter3d',
         mode: 'lines+markers',
         x: R, //SinR
@@ -84,23 +107,57 @@ var data = [];
             color: c,
             colorscale: "Viridis",
             cmin: 0,
-            cmax: pointCount
+            cmax: pointCount/3
         },
         marker: {
             size: 1,
             color: c,
             colorscale: "Viridis",
             cmin: 0,
-            cmax: pointCount
+            cmax: pointCount/3
         }
     });
 
 
-Plotly.newPlot('myDiv', data, {
+
+
+data2.push({
+    type: 'scatter3d',
+    mode: 'lines+markers',
+    x: MP3, //SinR
+    y: MP1, //SinI
+    z: ML, //SlrR
+    line: {
+        width: 5,
+        color: c,
+        colorscale: "Viridis",
+        cmin: 0,
+        cmax: pointCount
+    },
+    marker: {
+        size: 1,
+        color: c,
+        colorscale: "Viridis",
+        cmin: 0,
+        cmax: pointCount
+    }
+});
+
+}
+Plotly.newPlot('myDiv2', data2, {
+scene: {
+    xaxis: {title: 'SinR mRNA [molecules]'},
+    yaxis: {title: 'SinI mRNA [molecules]'},
+    zaxis: {title: 'SlrR mRNA [molecules]'}
+},
+showlegend: false
+});
+
+Plotly.newPlot('myDiv', data1, {
     scene: {
-        xaxis: {title: 'SinR'},
-        yaxis: {title: 'SinI'},
-        zaxis: {title: 'SlrR'}
+        xaxis: {title: 'SinR [molecules]'},
+        yaxis: {title: 'SinI [molecules]'},
+        zaxis: {title: 'SlrR [molecules]'}
     },
     showlegend: false
 });
