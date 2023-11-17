@@ -1,4 +1,4 @@
-var pointCount = 70000;
+var pointCount = 100000; //5.5 hours
 var i, r;
 
 /* - Weakly transcribed genes: 0.1 to 1 transcripts per minute (6 to 60 transcripts per hour)
@@ -33,16 +33,16 @@ let for_com_RL = 2e-3; //  (5.33e-3 molecules^-1*min^-1 acc to Zhuo Chen)1 (1.61
 
 let n_R = 2; 
 let n_A = 2; 
-let K_R = 205; 
+let K_R = 200; 
 let K_A = 100; 
 
-let init_I=0.81; // at the beginning, there is no SinI. AbrB is inhibiting the transcription of SinI and there's no Spo0A-P to activate it.
-let init_L=160; // at the beginning, there is no SlrR. SinR is inhibiting the transcription of SlrR.
+let init_I=0; // at the beginning, there is no SinI. AbrB is inhibiting the transcription of SinI and there's no Spo0A-P to activate it.
+let init_L=72.13; // at the beginning, there is no SlrR. SinR is inhibiting the transcription of SlrR.
 let init_m=0;
 
 var initialValues = [];
 for (var i = 1; i <= 1; i++) {
-    initialValues.push([644.8 * i, init_I, init_L, init_m, 15, 0.37]);
+    initialValues.push([999.9 * i, init_I, init_L, init_m, 12.5, 0.48]);
 }
 //  [R    , I      , L    , mI  , mR  , mL  ];
 var data1 = [];
@@ -61,7 +61,7 @@ for (var j = 0; j <  initialValues.length   ; j++) {
     for(i = 0; i < pointCount; i++) {
 
        // let A = i*(100/pointCount); 
-        let A =50; 
+        let A =300; 
        // let A = i*(100/pointCount); 
         
         let activation_P1 = 1 / (1 + Math.pow(R[i] / K_R, n_R)) * Math.pow(A / K_A, n_A) / (1 + Math.pow(A / K_A, n_A));
