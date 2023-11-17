@@ -1,4 +1,4 @@
-var pointCount = 30000;
+var pointCount = 35000;
 var i, r;
 
 /* - Weakly transcribed genes: 0.1 to 1 transcripts per minute (6 to 60 transcripts per hour)
@@ -9,43 +9,41 @@ var i, r;
 - **Rapidly degraded proteins:**  Degradation rate: >1 h^-1  Half-life: <1 hour
 - **Stably expressed proteins:**   Degradation rate: between 0.1 and 1 h^-1   Half-life: anywhere from 1 to 10 hours
 - **Very stable proteins:**   Degradation rate: <0.1 h^-1   Half-life: >10 hours
+
+- **mRNA Degradation rate:** on the order of 0.5 to 3 min^-1 (30 to 180 h^-1)
+
  */
 
-let prod_R3 = 3.33; // proteins/(transcript*minute) (200 h^-1 acc to Zhuo Chen)
-let prod_R1 = 3.33; // proteins/(transcript*minute) (200 h^-1 acc to Zhuo Chen)
-let prod_L = 3.33; // proteins/(transcript*minute) (200 h^-1 acc to Zhuo Chen)
+let prod_R3 = 0.84; // (3.33 minutes^-1 acc to Zhuo Chen) 1 (0.84 minutes^-1 acc to Shristopher A. Voigt) (0.84 acc to Jennifer S. Hallinan)
+let prod_R1 = 4; //(3.33 minutes^-1 acc to Zhuo Chen) 1 (48 minutes^-1 acc to Shristopher A. Voigt)
+let prod_L = 4; // (3.33 minutes^-1 acc to Zhuo Chen) 1 (6 minutes^-1 acc to Jennifer S. Hallinan)
 
-let prod_MP1 = 1.417*(1.4); // transcript/minute## fixed    (85 h^-1 acc to Zhuo Chen)
-let prod_MP3 = 1.667; // transcript/minute ## fixed   (100 h^-1 acc to Zhuo Chen)
-let prod_ML = 2.083; // transcript/minute ## fixed    (125 h^-1 acc to Zhuo Chen)
+let prod_MP1 = 5.4 ; // (1.416 transcript/minute acc to Zhuo Chen)1  (9 transcript/minute acc to Shristopher A. Voigt) (1.2 trancript/minute acc to Jennifer S. Hallinan)
+let prod_MP3 = 3; // (1.667 transcript/minute acc to Zhuo Chen)1 (16.8 transcript/minute acc to Shristopher A. Voigt)
+let prod_ML = 3; //   (2.083 transcript/minute acc to Zhuo Chen)1 (12 transcript/minute acc to Jennifer S. Hallinan)
 
-let deg_R = 0.01;  // 1/minute  ## fixed   (0.2 h^-1 acc to Zhuo Chen)
-let deg_I = 0.01; // 1/minute ## fixed      (0.2 h^-1 acc to Zhuo Chen)
-let deg_L = 0.01; // 1/minute ## fixed      (0.6 h^-1 acc to Zhuo Chen)
+let deg_R = 0.01;  //  (3.33e-3 1/minute acc to Zhuo Chen) 1 (0.12 1/minute acc to Shristopher A. Voigt)
+let deg_I = 0.01; //  (3.33e-3 1/minute acc to Zhuo Chen) 1 (1.2 1/minute acc to Shristopher A. Voigt)
+let deg_L = 0.015; // (0.01 1/minute acc to Zhuo Chen) 1
 
-let deg_MP = 0.138; // 1/minute  ## fixed   (8.3 h^-1 acc to Zhuo Chen)
+let deg_MP = 0.2; //  (0.138 1/minute acc to Zhuo Chen)1 
 
-let for_com_RI =  5e-3; // 1/(minute*protein) (0.32 molecules^-1*h^-1 acc to Zhuo Chen)
-let for_com_RL = 5e-3; // 1/(minute*protein) (0.32 molecules^-1*h^-1 acc to Zhuo Chen)
+let for_com_RI =  9e-3; //  (5.33e-3 molecules^-1*min^-1 acc to Zhuo Chen)1 (9.06e-3 molecules^-1*min^-1 acc to Joseph A. Newman)
+let for_com_RL = 2e-3; //  (5.33e-3 molecules^-1*min^-1 acc to Zhuo Chen)1 (1.61e-3 molecules^-1*min^-1 acc to Joseph A. Newman)
 
-let n_R = 4; 
-let n_A = 4; 
-let K_R = 500; 
-let K_A = 50; 
-let A = 250;
+let n_R = 2; 
+let n_A = 2; 
+let K_R = 205; 
+let K_A = 100; 
 
 let init_I=0; // at the beginning, there is no SinI. AbrB is inhibiting the transcription of SinI and there's no Spo0A-P to activate it.
-let init_L=0; // at the beginning, there is no SlrR. SinR is inhibiting the transcription of SlrR.
-let init_m=11;
+let init_L=99; // at the beginning, there is no SlrR. SinR is inhibiting the transcription of SlrR.
+let init_m=0;
 
-var initialValues = [
-   
-    [100.0, init_I, init_L, init_m, init_m, init_m],
-    [200.0, init_I, init_L, init_m, init_m, init_m],
-    [300.0, init_I, init_L, init_m, init_m, init_m],
-    [400.0, init_I, init_L, init_m, init_m, init_m],
-    [500.0, init_I, init_L, init_m, init_m, init_m],
-];
+var initialValues = [];
+for (var i = 1; i <= 1; i++) {
+    initialValues.push([1254 * i, init_I, init_L, init_m, 15, 0.37]);
+}
 //  [R    , I      , L    , mI  , mR  , mL  ];
 var data1 = [];
 var data2 = [];
@@ -62,6 +60,10 @@ for (var j = 0; j <  initialValues.length   ; j++) {
 
     for(i = 0; i < pointCount; i++) {
 
+       // let A = i*(100/pointCount); 
+        let A =250; 
+       // let A = i*(100/pointCount); 
+        
         let activation_P1 = 1 / (1 + Math.pow(R[i] / K_R, n_R)) * Math.pow(A / K_A, n_A) / (1 + Math.pow(A / K_A, n_A));
        
         let activation_L = 1 / (1 + Math.pow(R[i] / K_R, n_R));
@@ -107,14 +109,14 @@ for (var j = 0; j <  initialValues.length   ; j++) {
             color: c,
             colorscale: "Viridis",
             cmin: 0,
-            cmax: pointCount/3
+            cmax: pointCount
         },
         marker: {
             size: 1,
             color: c,
             colorscale: "Viridis",
             cmin: 0,
-            cmax: pointCount/3
+            cmax: pointCount
         }
     });
 
