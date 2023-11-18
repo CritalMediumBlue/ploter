@@ -38,15 +38,15 @@ let for_com_RL = 2e-3; //  (5.33e-3 molecules^-1*min^-1 acc to Zhuo Chen)1 (1.61
 let n_R = 4; 
 let n_A = 8; 
 let K_R = 1700; // (476 - 964 molecules acc Joseph A. Newman)
-let K_A = 45; 
+let K_A = 900; 
 
 let init_I=0.005; // at the beginning, there is no SinI. AbrB is inhibiting the transcription of SinI and there's no Spo0A-P to activate it.
 let init_L=22; // at the beginning, there is no SlrR. SinR is inhibiting the transcription of SlrR.
 let init_m=0.05;
 
 var initialValues = [];
-for (var i = 0; i <= 20; i++) {
-    initialValues.push([2380 , init_I, init_L, init_m, 4.0, 0.11, i*10]);
+for (var i = 0; i <= 10; i++) {
+    initialValues.push([2380 , init_I, init_L, init_m, 4.0, 0.11, i*200]);
 }
 //  [R    , I      , L    , mI  , mR  , mL , A0 ];
 var data1 = [];
