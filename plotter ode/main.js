@@ -1,4 +1,4 @@
-var pointCount = 5000; //  5000 = 4.16 hours
+var pointCount = 10000; //  10000 = 8.32 hours
 var i, r;
 
 /* - Weakly transcribed genes: 0.1 to 1 transcripts per minute (6 to 60 transcripts per hour)
@@ -46,7 +46,7 @@ let init_m=0;
 
 var initialValues = [];
 for (var i = 0; i <= 70; i++) {
-    initialValues.push([0 , init_I, init_L, init_m, 4.0, 0, i*10]);
+    initialValues.push([500 , init_I, init_L, init_m, 4.0, 0, i*10]);
 }
 //                     [R    , I      , L    , mI   , mR  , mL ,  A0 ];
 var data1 = [];
