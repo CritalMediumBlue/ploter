@@ -40,13 +40,13 @@ let n_A = 8;
 let K_R = 800; // (476 - 964 molecules acc Joseph A. Newman)
 let K_A = 500; 
 
-let init_I=0.005; // at the beginning, there is no SinI. AbrB is inhibiting the transcription of SinI and there's no Spo0A-P to activate it.
-let init_L=300; // at the beginning, there is no SlrR. SinR is inhibiting the transcription of SlrR.
-let init_m=0.05;
+let init_I=500; // at the beginning, there is no SinI. AbrB is inhibiting the transcription of SinI and there's no Spo0A-P to activate it.
+let init_L=500; // at the beginning, there is no SlrR. SinR is inhibiting the transcription of SlrR.
+let init_m=0;
 
 var initialValues = [];
-for (var i = 30; i <= 70; i++) {
-    initialValues.push([200 , init_I, init_L, init_m, 4.0, 0.11, i*10]);
+for (var i = 0; i <= 70; i++) {
+    initialValues.push([0 , init_I, init_L, init_m, 4.0, 0, i*10]);
 }
 //                     [R    , I      , L    , mI   , mR  , mL ,  A0 ];
 var data1 = [];
