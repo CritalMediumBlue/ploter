@@ -159,7 +159,7 @@ data2.push({
 });
 
 }
-Plotly.newPlot('myDiv2', data2, {
+/* Plotly.newPlot('myDiv2', data2, {
     scene: {
         xaxis: {
             title: 'SinR mRNA [Molecules]',
@@ -181,7 +181,7 @@ Plotly.newPlot('myDiv2', data2, {
         }
     },
     showlegend: false
-});
+}); */
 
 Plotly.newPlot('myDiv', data1, {
     scene: {
