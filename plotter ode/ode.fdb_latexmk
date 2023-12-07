@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1700149756 "c:/Users/User/Desktop/random plotter/plotter ode/ode.tex" "ode.pdf" "ode" 1700149757 0
+["pdflatex"] 1701321023 "c:/Users/User/Desktop/random plotter/plotter ode/ode.tex" "ode.pdf" "ode" 1701321024 0
   "C:/Users/User/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1698065587 279613 fe62a258ff6d99cc2243c3a2d16aa767 ""
   "C:/Users/User/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1697111369 23178489 59505591cfbad8db158bf57d21d42f52 ""
   "C:/Users/User/AppData/Local/Programs/MiKTeX/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1233951848 1004 54797486969f23fa377b128694d548df ""
@@ -7,6 +7,7 @@
   "C:/Users/User/AppData/Local/Programs/MiKTeX/fonts/tfm/public/cm/cmmi12.tfm" 1136765053 1524 4414a8315f39513458b80dfc63bff03a ""
   "C:/Users/User/AppData/Local/Programs/MiKTeX/fonts/tfm/public/cm/cmr12.tfm" 1136765053 1288 655e228510b4c2a1abe905c368440826 ""
   "C:/Users/User/AppData/Local/Programs/MiKTeX/fonts/tfm/public/cm/cmsy10.tfm" 1136765053 1124 6c73e740cf17375f03eec0ee63599741 ""
+  "C:/Users/User/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb" 1247593067 30251 6afa5cb1d0204815a708a080681d4674 ""
   "C:/Users/User/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb" 1247593067 36299 5f9df58c2139e7edcf37c8fca4bd384d ""
   "C:/Users/User/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb" 1247593067 36741 0ee9e374ec3e30da87cdfb0ea3575226 ""
   "C:/Users/User/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb" 1247593067 36281 c355509802a035cadc5f15869451dcee ""
@@ -26,9 +27,9 @@
   "C:/Users/User/AppData/Local/Programs/MiKTeX/tex/latex/geometry/geometry.sty" 1578053545 42759 9cf6c5257b1bc7af01a58859749dd37a ""
   "C:/Users/User/AppData/Local/Programs/MiKTeX/tex/latex/graphics/keyval.sty" 1665063979 2671 7e67d78d9b88c845599a85b2d41f2e39 ""
   "C:/Users/User/AppData/Local/Programs/MiKTeX/tex/latex/l3backend/l3backend-pdftex.def" 1680178475 29768 5600b3a98028e2e01b60e7f98fbf4b9c ""
-  "c:/Users/User/Desktop/random plotter/plotter ode/ode.tex" 1700149755 1064 49c845a753a911bd544760f85e8cd2ab ""
-  "ode.aux" 1700149757 32 3985256e7290058c681f74d7a3565a19 "pdflatex"
-  "ode.tex" 1700149755 1064 49c845a753a911bd544760f85e8cd2ab ""
+  "c:/Users/User/Desktop/random plotter/plotter ode/ode.tex" 1701321022 667 36704834c1b0bbf866c243141529fac0 ""
+  "ode.aux" 1701321024 32 3985256e7290058c681f74d7a3565a19 "pdflatex"
+  "ode.tex" 1701321022 667 36704834c1b0bbf866c243141529fac0 ""
   (generated)
   "ode.aux"
   "ode.log"
