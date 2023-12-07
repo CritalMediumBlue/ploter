@@ -1,4 +1,4 @@
-var pointCount = 5000; //  
+var pointCount = 2000; //  1000 are 5.55 hours
 var i, r;
 
 /* - Weakly transcribed genes: 0.1 to 1 transcripts per minute (6 to 60 transcripts per hour)
@@ -19,12 +19,12 @@ var i, r;
  */
 
 let prod_R3 = 3.0; // (3.33 minutes^-1 acc to Zhuo Chen) 1 (0.84 minutes^-1 acc to Shristopher A. Voigt) (0.84 acc to Jennifer S. Hallinan)
-let prod_R1 = 6.0; //(3.33 minutes^-1 acc to Zhuo Chen) 1 (48 minutes^-1 acc to Shristopher A. Voigt)
+let prod_R1 = 3.0; //(3.33 minutes^-1 acc to Zhuo Chen) 1 (48 minutes^-1 acc to Shristopher A. Voigt)
 let prod_L = 3.0; // (3.33 minutes^-1 acc to Zhuo Chen) 1 (6 minutes^-1 acc to Jennifer S. Hallinan)
 
-let prod_MP1 = 2.0 ; // (1.416 transcript/minute acc to Zhuo Chen)1  (9 transcript/minute acc to Shristopher A. Voigt) (1.2 trancript/minute acc to Jennifer S. Hallinan)
-let prod_MP3 = 2.0; // (1.667 transcript/minute acc to Zhuo Chen)1 (16.8 transcript/minute acc to Shristopher A. Voigt)
-let prod_ML = 2.0; //   (2.083 transcript/minute acc to Zhuo Chen)1 (12 transcript/minute acc to Jennifer S. Hallinan)
+let prod_MP1 = 1.0 ; // (1.416 transcript/minute acc to Zhuo Chen)1  (9 transcript/minute acc to Shristopher A. Voigt) (1.2 trancript/minute acc to Jennifer S. Hallinan)
+let prod_MP3 = 1.0; // (1.667 transcript/minute acc to Zhuo Chen)1 (16.8 transcript/minute acc to Shristopher A. Voigt)
+let prod_ML = 1.0; //   (2.083 transcript/minute acc to Zhuo Chen)1 (12 transcript/minute acc to Jennifer S. Hallinan)
 
 let deg_R = 9e-3;  //  (3.33e-3 1/minute acc to Zhuo Chen) 1 (0.12 1/minute acc to Shristopher A. Voigt)
 let deg_I = 9e-3; //  (3.33e-3 1/minute acc to Zhuo Chen) 1 (1.2 1/minute acc to Shristopher A. Voigt)
@@ -32,21 +32,21 @@ let deg_L = 9e-3; // (0.01 1/minute acc to Zhuo Chen) 1
 
 //let deg_MP = 0.5; //  (0.138 1/minute acc to Zhuo Chen)1 
 
-let for_com_RI =  9e-3; //  (5.33e-3 molecules^-1*min^-1 acc to Zhuo Chen)1 (9.06e-3 molecules^-1*min^-1 acc to Joseph A. Newman)
-let for_com_RL = 9e-3; //  (5.33e-3 molecules^-1*min^-1 acc to Zhuo Chen)1 (1.61e-3 molecules^-1*min^-1 acc to Joseph A. Newman)
+let for_com_RI =  1e-3; //  (5.33e-3 molecules^-1*min^-1 acc to Zhuo Chen)1 (9.06e-3 molecules^-1*min^-1 acc to Joseph A. Newman)
+let for_com_RL = 1e-3; //  (5.33e-3 molecules^-1*min^-1 acc to Zhuo Chen)1 (1.61e-3 molecules^-1*min^-1 acc to Joseph A. Newman)
 
 let n_R = 4; 
-let n_A = 8; 
-let K_R = 500; // (476 - 964 molecules acc Joseph A. Newman)
-let K_A = 500; 
+let n_A = 4; 
+let K_R = 160; // (476 - 964 molecules acc Joseph A. Newman)
+let K_A = 100; 
 
-let init_I=0//24; // at the beginning, there is no SinI. AbrB is inhibiting the transcription of SinI and there's no Spo0A-P to activate it.
-let init_L=160//664; // at the beginning, there is no SlrR. SinR is inhibiting the transcription of SlrR.
-let init_R=666;
+let init_I=1//24; // at the beginning, there is no SinI. AbrB is inhibiting the transcription of SinI and there's no Spo0A-P to activate it.
+let init_L=1//664; // at the beginning, there is no SlrR. SinR is inhibiting the transcription of SlrR.
+let init_R=0;
 
 var initialValues = [];
-for (var i = 10; i <= 150; i++) {
-    initialValues.push([init_R , init_I, init_L, 0, 4.0, 0, 50+i*5]);
+for (var i = 0; i <= 100; i++) {
+    initialValues.push([init_R , init_I, init_L, 0, 4.0, 0, 0+i*2.5]);
 }
 //                     [R    , I      , L    , mI   , mR  , mL ,  A0 ];
 var data1 = [];
@@ -85,7 +85,7 @@ for (var j = 0; j <  initialValues.length   ; j++) {
         //ML.push(ML[i] + dML/time_step);
 
         // dR/dt equation
-        let dR = ( dMP3)*prod_R3 - deg_R * R[i]- for_com_RI * R[i] * I[i];// - for_com_RL * R[i] * L[i]; /* + dis_com_L * ComL[i] + dis_com_I * ComI[i]; */
+        let dR = ( dMP3)*prod_R3 - deg_R * R[i]- for_com_RI * R[i] * I[i] - for_com_RL * R[i] * L[i]; 
        
        
         if (R[i] + dR/time_step < 0) {
@@ -107,7 +107,7 @@ for (var j = 0; j <  initialValues.length   ; j++) {
 
         // dL/dt equation
         
-        let dL = (dML)*prod_L - deg_L * L[i];
+        let dL = (dML)*prod_L - deg_L * L[i]- for_com_RL * R[i] * L[i];
 
 
         if (L[i] + dL/time_step < 0) {
