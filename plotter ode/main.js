@@ -1,4 +1,4 @@
-var pointCount = 2000; //  1000 are 5.55 hours
+var pointCount = 5000; //  1000 are 5.55 hours
 var i, r;
 
 /* - Weakly transcribed genes: 0.1 to 1 transcripts per minute (6 to 60 transcripts per hour)
@@ -26,9 +26,9 @@ let prod_MP1 = 1.0 ; // (1.416 transcript/minute acc to Zhuo Chen)1  (9 transcri
 let prod_MP3 = 1.0; // (1.667 transcript/minute acc to Zhuo Chen)1 (16.8 transcript/minute acc to Shristopher A. Voigt)
 let prod_ML = 1.0; //   (2.083 transcript/minute acc to Zhuo Chen)1 (12 transcript/minute acc to Jennifer S. Hallinan)
 
-let deg_R = 9e-3;  //  (3.33e-3 1/minute acc to Zhuo Chen) 1 (0.12 1/minute acc to Shristopher A. Voigt)
-let deg_I = 9e-3; //  (3.33e-3 1/minute acc to Zhuo Chen) 1 (1.2 1/minute acc to Shristopher A. Voigt)
-let deg_L = 9e-3; // (0.01 1/minute acc to Zhuo Chen) 1
+let deg_R = 1e-2;  //  (3.33e-3 1/minute acc to Zhuo Chen) 1 (0.12 1/minute acc to Shristopher A. Voigt)
+let deg_I = 1e-2; //  (3.33e-3 1/minute acc to Zhuo Chen) 1 (1.2 1/minute acc to Shristopher A. Voigt)
+let deg_L = 1e-2; // (0.01 1/minute acc to Zhuo Chen) 1
 
 //let deg_MP = 0.5; //  (0.138 1/minute acc to Zhuo Chen)1 
 
@@ -37,16 +37,16 @@ let for_com_RL = 1e-3; //  (5.33e-3 molecules^-1*min^-1 acc to Zhuo Chen)1 (1.61
 
 let n_R = 4; 
 let n_A = 4; 
-let K_R = 160; // (476 - 964 molecules acc Joseph A. Newman)
+let K_R = 110; // (476 - 964 molecules acc Joseph A. Newman)
 let K_A = 100; 
 
-let init_I=1//24; // at the beginning, there is no SinI. AbrB is inhibiting the transcription of SinI and there's no Spo0A-P to activate it.
-let init_L=1//664; // at the beginning, there is no SlrR. SinR is inhibiting the transcription of SlrR.
-let init_R=0;
+let init_I=150//24; // at the beginning, there is no SinI. AbrB is inhibiting the transcription of SinI and there's no Spo0A-P to activate it.
+let init_L=150//664; // at the beginning, there is no SlrR. SinR is inhibiting the transcription of SlrR.
+let init_R=50;
 
 var initialValues = [];
-for (var i = 0; i <= 100; i++) {
-    initialValues.push([init_R , init_I, init_L, 0, 4.0, 0, 0+i*2.5]);
+for (var i = 15; i <= 25; i++) {
+    initialValues.push([init_R , init_I, init_L, 0, 4.0, 0, 0+i*5]);
 }
 //                     [R    , I      , L    , mI   , mR  , mL ,  A0 ];
 var data1 = [];
@@ -62,7 +62,7 @@ for (var j = 0; j <  initialValues.length   ; j++) {
     var ML = [initialValues[j][5]];
     var P = [initialValues[j][6]];
     var c = [];
-    var time_step = 3;
+    var time_step = 1;
 
     for(i = 0; i < pointCount; i++) {
 
