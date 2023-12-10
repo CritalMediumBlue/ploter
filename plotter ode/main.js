@@ -1,4 +1,4 @@
-var pointCount = 5000; //  1000 are 5.55 hours
+var pointCount = 300; //  100 are 8.33 hours
 var i, r;
 
 /* - Weakly transcribed genes: 0.1 to 1 transcripts per minute (6 to 60 transcripts per hour)
@@ -20,15 +20,15 @@ var i, r;
 
 let prod_R3 = 3.0; // (3.33 minutes^-1 acc to Zhuo Chen) 1 (0.84 minutes^-1 acc to Shristopher A. Voigt) (0.84 acc to Jennifer S. Hallinan)
 let prod_R1 = 3.0; //(3.33 minutes^-1 acc to Zhuo Chen) 1 (48 minutes^-1 acc to Shristopher A. Voigt)
-let prod_L = 3.0; // (3.33 minutes^-1 acc to Zhuo Chen) 1 (6 minutes^-1 acc to Jennifer S. Hallinan)
+let prod_L = 2.5; // (3.33 minutes^-1 acc to Zhuo Chen) 1 (6 minutes^-1 acc to Jennifer S. Hallinan)
 
 let prod_MP1 = 1.0 ; // (1.416 transcript/minute acc to Zhuo Chen)1  (9 transcript/minute acc to Shristopher A. Voigt) (1.2 trancript/minute acc to Jennifer S. Hallinan)
 let prod_MP3 = 1.0; // (1.667 transcript/minute acc to Zhuo Chen)1 (16.8 transcript/minute acc to Shristopher A. Voigt)
 let prod_ML = 1.0; //   (2.083 transcript/minute acc to Zhuo Chen)1 (12 transcript/minute acc to Jennifer S. Hallinan)
 
-let deg_R = 1e-2;  //  (3.33e-3 1/minute acc to Zhuo Chen) 1 (0.12 1/minute acc to Shristopher A. Voigt)
-let deg_I = 1e-2; //  (3.33e-3 1/minute acc to Zhuo Chen) 1 (1.2 1/minute acc to Shristopher A. Voigt)
-let deg_L = 1e-2; // (0.01 1/minute acc to Zhuo Chen) 1
+let deg_R = 1.4e-2;  //  (3.33e-3 1/minute acc to Zhuo Chen) 1 (0.12 1/minute acc to Shristopher A. Voigt)
+let deg_I = 1.4e-2; //  (3.33e-3 1/minute acc to Zhuo Chen) 1 (1.2 1/minute acc to Shristopher A. Voigt)
+let deg_L = 1.4e-2; // (0.01 1/minute acc to Zhuo Chen) 1
 
 //let deg_MP = 0.5; //  (0.138 1/minute acc to Zhuo Chen)1 
 
@@ -40,81 +40,82 @@ let n_A = 4;
 let K_R = 110; // (476 - 964 molecules acc Joseph A. Newman)
 let K_A = 100; 
 
-let init_I=150//24; // at the beginning, there is no SinI. AbrB is inhibiting the transcription of SinI and there's no Spo0A-P to activate it.
-let init_L=150//664; // at the beginning, there is no SlrR. SinR is inhibiting the transcription of SlrR.
-let init_R=50;
 
-var initialValues = [];
-for (var i = 15; i <= 25; i++) {
-    initialValues.push([init_R , init_I, init_L, 0, 4.0, 0, 0+i*5]);
-}
-//                     [R    , I      , L    , mI   , mR  , mL ,  A0 ];
-var data1 = [];
+
+let init_L=87.1727//664; // at the beginning, there is no SlrR. SinR is inhibiting the transcription of SlrR.
+let init_I=103.3316//24; // at the beginning, there is no SinI. AbrB is inhibiting the transcription of SinI and there's no Spo0A-P to activate it.
+let init_R=14.6696; //<<<<####################################################
+
+
+let data1 = [];
+let R = [];
+let I = [];
+let L = [];
 var data2 = [];
+ R[0] = init_R;
+ I[0] = init_I;
+ L[0] = init_L;
 
-for (var j = 0; j <  initialValues.length   ; j++) {
 
-    var R = [initialValues[j][0]];
-    var I = [initialValues[j][1]];
-    var L = [initialValues[j][2]];
-    var MP1 = [initialValues[j][3]];
-    var MP3 = [initialValues[j][4]];
-    var ML = [initialValues[j][5]];
-    var P = [initialValues[j][6]];
+
+   
     var c = [];
-    var time_step = 1;
+    var time_step = 0.2;
 
     for(i = 0; i < pointCount; i++) {
 
-         A = P; 
-        
-        let activation_P1 = 1 / (1 + Math.pow(R[i] / K_R, n_R)) * Math.pow(A / K_A, n_A) / (1 + Math.pow(A / K_A, n_A));
-       
+        var P =  300-pointCount ;  //300-
+
+
         let activation_L = 1 / (1 + Math.pow(R[i] / K_R, n_R));
+        
+        let activation_P1 = activation_L * Math.pow(P / K_A, n_A) / (1 + Math.pow(P / K_A, n_A));
+       
+        
         // dMP3/dt equation
 
-        let dMP3 = prod_MP3 //- deg_MP*MP3[i];
+        let dMP3 = 1 //- deg_MP*MP3[i];
         //MP3.push(MP3[i] + dMP3/time_step);
 
         // dM1/dt equation
-        let dMP1 = prod_MP1*activation_P1 //- deg_MP*MP1[i];
+        let dMP1 = activation_P1 //- deg_MP*MP1[i];
         //MP1.push(MP1[i] + dMP1/time_step);
 
         // dML/dt equation
-        let dML = prod_ML*activation_L //- deg_MP*ML[i];
+        let dML = activation_L //- deg_MP*ML[i];
         //ML.push(ML[i] + dML/time_step);
 
         // dR/dt equation
         let dR = ( dMP3)*prod_R3 - deg_R * R[i]- for_com_RI * R[i] * I[i] - for_com_RL * R[i] * L[i]; 
        
        
-        if (R[i] + dR/time_step < 0) {
-            R.push(0);
-        } else {
+       // if (R[i] + dR/time_step < 0) {
+       //     R.push(0);
+      //  } else {
         R.push(R[i] + dR/time_step);
-        }
+      //  }
         
 
         // dI/dt equation
         let dI = (dMP1)*prod_R1 - deg_I * I[i]- for_com_RI* R[i] * I[i];           
         // ; /* + dis_com_I * ComI[i]; */
 
-        if (I[i] + dI/time_step < 0) {
-            I.push(0);
-        } else {
+      //  if (I[i] + dI/time_step < 0) {
+     //       I.push(0);
+      //  } else {
         I.push(I[i] + dI/time_step);
-        }
+      //  }
 
         // dL/dt equation
         
         let dL = (dML)*prod_L - deg_L * L[i]- for_com_RL * R[i] * L[i];
 
 
-        if (L[i] + dL/time_step < 0) {
-            L.push(0);
-        } else {
+      //  if (L[i] + dL/time_step < 0) {
+      //      L.push(0);
+     //   } else {
         L.push(L[i] + dL/time_step);
-        }
+      //  }
 
         c.push(i)
     }
@@ -126,9 +127,9 @@ var L_conc = [];
 
 // After all calculations
 for(i = 0; i < pointCount; i++) {
-    R_conc.push(R[i] / 2); //From molecules to nM
-    I_conc.push(I[i] / 2);
-    L_conc.push(L[i] / 2);
+    R_conc.push(R[i]);// / 2); //From molecules to nM
+    I_conc.push(I[i]);// / 2);
+    L_conc.push(L[i]);// / 2);
 }
 
     data1.push({
@@ -153,7 +154,7 @@ for(i = 0; i < pointCount; i++) {
         }
     });
 
-data2.push({
+/* data2.push({
     type: 'scatter3d',
     mode: 'lines+markers',
     x: MP3, //SinR
@@ -173,9 +174,9 @@ data2.push({
         cmin: 0,
         cmax: pointCount
     }
-});
+}); */
 
-}
+
 /* Plotly.newPlot('myDiv2', data2, {
     scene: {
         xaxis: {
