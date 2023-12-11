@@ -1,4 +1,4 @@
-var pointCount = 300; //  100 are 8.33 hours
+var pointCount = 150; //  100 are 8.33 hours
 var i, r;
 
 /* - Weakly transcribed genes: 0.1 to 1 transcripts per minute (6 to 60 transcripts per hour)
@@ -42,9 +42,9 @@ let K_A = 100;
 
 
 
-let init_L=87.1727//664; // at the beginning, there is no SlrR. SinR is inhibiting the transcription of SlrR.
-let init_I=103.3316//24; // at the beginning, there is no SinI. AbrB is inhibiting the transcription of SinI and there's no Spo0A-P to activate it.
-let init_R=14.6696; //<<<<####################################################
+let init_L=0.9705701//664; // at the beginning, there is no SlrR. SinR is inhibiting the transcription of SlrR.
+let init_I=0//24; // at the beginning, there is no SinI. AbrB is inhibiting the transcription of SinI and there's no Spo0A-P to activate it.
+let init_R=200.3932; //<<<<####################################################
 
 
 let data1 = [];
@@ -64,7 +64,7 @@ var data2 = [];
 
     for(i = 0; i < pointCount; i++) {
 
-        var P =  300-pointCount ;  //300-
+        var P =  pointCount*2 ;  //300-
 
 
         let activation_L = 1 / (1 + Math.pow(R[i] / K_R, n_R));
