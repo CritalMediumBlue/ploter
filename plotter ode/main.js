@@ -1,4 +1,4 @@
-var pointCount = 150; //  100 are 8.33 hours
+var pointCount = 350; //  100 are 8.33 hours
 var i, r;
 
 /* - Weakly transcribed genes: 0.1 to 1 transcripts per minute (6 to 60 transcripts per hour)
@@ -60,12 +60,23 @@ var data2 = [];
 
    
     var c = [];
-    var time_step = 0.2;
+    var time_step = 0.11;
 
     for(i = 0; i < pointCount; i++) {
 
-        var P =  pointCount*2 ;  //300-
-
+        if (i<150) {
+        var P =  i*2 ;  // from 0 to 300
+        } else if (i>=150) {
+            var P =  600 - i*2 ;  //from 300 to 0
+        }
+        /*  
+        else if (i>=1000){
+            var P =  i - 1000 ;  //from 0 to 500 again
+        } 
+  */
+        if (P<0) {
+            P=0;
+        }
 
         let activation_L = 1 / (1 + Math.pow(R[i] / K_R, n_R));
         
@@ -118,6 +129,8 @@ var data2 = [];
       //  }
 
         c.push(i)
+        
+
     }
 
 // Create new arrays for concentrations
@@ -204,21 +217,21 @@ for(i = 0; i < pointCount; i++) {
 Plotly.newPlot('myDiv', data1, {
     scene: {
         xaxis: {
-            title: 'SinR [nM]',
+            title: 'SinR [molecules/cell]',
             titlefont: {
                 color: 'red'
             }
         },
         yaxis: {
-            title: 'SinI [nM]',
+            title: 'SinI [molecules/cell]',
             titlefont: {
                 color: 'blue'
             }
         } ,
         zaxis: {
-            title: 'SlrR [nM]',
+            title: 'SlrR [molecules/cell]',
             titlefont: {
-                color: 'rgb(255, 200, 0)'
+                color: 'rgb(180, 170, 0)'
             }
         } 
     },
