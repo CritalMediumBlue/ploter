@@ -42,9 +42,9 @@ let K_A = 100;
 
 
 
-let init_L=0.9705701//664; // at the beginning, there is no SlrR. SinR is inhibiting the transcription of SlrR.
+let init_L=0.970//664; // at the beginning, there is no SlrR. SinR is inhibiting the transcription of SlrR.
 let init_I=0//24; // at the beginning, there is no SinI. AbrB is inhibiting the transcription of SinI and there's no Spo0A-P to activate it.
-let init_R=200.3932; //<<<<####################################################
+let init_R=200.39; //<<<<####################################################
 
 
 let data1 = [];
@@ -64,16 +64,15 @@ var data2 = [];
 
     for(i = 0; i < pointCount; i++) {
 
-        if (i<150) {
+         if (i<150) {
         var P =  i*2 ;  // from 0 to 300
-        } else if (i>=150) {
+        } else 
+         if (i>=150) {
             var P =  600 - i*2 ;  //from 300 to 0
         }
-        /*  
-        else if (i>=1000){
-            var P =  i - 1000 ;  //from 0 to 500 again
-        } 
-  */
+          
+      
+  
         if (P<0) {
             P=0;
         }
